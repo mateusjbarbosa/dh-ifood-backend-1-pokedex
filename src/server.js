@@ -1,3 +1,4 @@
-const app = require('./app');
+import "dotenv/config";
+import app from "./app";
 
-app.listen(3030);
+app.listen(process.env.API_PORT);
