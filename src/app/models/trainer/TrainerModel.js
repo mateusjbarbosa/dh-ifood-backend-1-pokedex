@@ -4,7 +4,10 @@ export class TrainerModel extends Model {
   static init(sequelize) {
     super.init(
       {
-        id: Sequelize.UUIDV4(),
+        id: {
+          type: Sequelize.UUIDV4(),
+          primaryKey: true,
+        },
         name: Sequelize.STRING,
         email: Sequelize.STRING,
         password: Sequelize.STRING,
