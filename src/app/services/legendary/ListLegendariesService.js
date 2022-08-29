@@ -33,7 +33,7 @@ export default class ListLegendariesService {
   }
 
   listOne(pokemonName) {
-    const pokemonList = ListLegendariesService.listLegendariesService();
+    const pokemonList = this.listAll();
     const pokemon = pokemonList.find((item) => item.name === pokemonName);
     return pokemon;
   }
