@@ -6,8 +6,8 @@ export default class ListLegendaryByNameController {
   }
 
   index(request, response) {
-    const listLegendaries = this.service.listAll();
-    response.json(listLegendaries);
+    const legendaries = this.service.listAll();
+    response.json(legendaries);
   }
 
   show(request, response) {
