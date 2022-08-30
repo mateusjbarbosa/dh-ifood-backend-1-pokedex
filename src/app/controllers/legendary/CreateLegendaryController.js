@@ -5,7 +5,7 @@ export default class CreateLegendaryController {
     this.service = new CreateLegendaryService();
   }
 
-  create(request, response) {
+  async create(request, response) {
     const {
       name,
       description,
@@ -18,7 +18,7 @@ export default class CreateLegendaryController {
       specialDefense,
     } = request.body;
 
-    const legendary = this.service.create(
+    const legendary = await this.service.create(
       name,
       description,
       type,
