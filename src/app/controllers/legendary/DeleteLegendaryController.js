@@ -5,10 +5,10 @@ export default class DeleteLegendaryController {
     this.service = new DeleteLegendaryService();
   }
 
-  delete(request, response) {
+  async delete(request, response) {
     const { id } = request.params;
 
-    const resultado = this.service.delete(id);
+    const resultado = await this.service.delete(id);
 
     response.send(resultado);
   }
