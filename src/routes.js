@@ -27,10 +27,12 @@ const listLegendaryByNameController = new ListLegendaryByNameController();
 const updateLegendaryController = new UpdateLegendaryController();
 const deleteLegendaryController = new DeleteLegendaryController();
 
-// routes.get("/legendaries", listLegendaryController.index);
 routes.get("/legendaries", (req, res) =>
-  listLegendaryByNameController.show(req, res)
+  listLegendaryByNameController.index(req, res)
 );
+// routes.get("/legendary-by-name", (req, res) =>
+//   listLegendaryByNameController.show(req, res)
+// );
 routes.post("/legendaries", legendaryValidator, (req, res) =>
   createLegendaryController.create(req, res)
 );
