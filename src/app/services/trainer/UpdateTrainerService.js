@@ -1,3 +1,4 @@
+import { TrainerModel } from "../../models/trainer/TrainerModel";
 import ListTrainerService from "./ListTrainerService";
 
 export default class UpdateTrainerService {
@@ -5,52 +6,38 @@ export default class UpdateTrainerService {
     this.service = new ListTrainerService();
   }
 
-  update(id, name, age, city) {
-    const trainers = this.service.listAll();
+  async update(id, name, age, city) {
+    try {
+      const trainer = await TrainerModel.findByPk(id);
 
-    const updateTrainer = trainers.find((trainer) => trainer.id === id);
-    const updateTrainerIndex = trainers.findIndex(
-      (trainer) => trainer.id === id
-    );
+      if (!trainer) {
+        return { sucess: false, mensagem: "Treinador não encontrado" };
+      }
 
-    if (!updateTrainer) {
-      return {
-        sucess: false,
-        message: "Treinador não encontrado",
-      };
+      const [numeroDeRegistrosAtualizados] = await TrainerModel.update(
+        {
+          name,
+          age,
+          city,
+        },
+        {
+          where: { id },
+        }
+      );
+
+      if (numeroDeRegistrosAtualizados === 0) {
+        return { sucess: false, mensagem: "Dados iguais" };
+      } else {
+        return {
+          id,
+          name,
+          age,
+          city,
+        };
+      }
+    } catch (error) {
+      console.log(error);
+      return { sucess: false, message: error.message };
     }
-
-    if (name.length < 5) {
-      return {
-        sucess: false,
-        message: "Nome precisa ter pelo menos 5 caracteres",
-      };
-    }
-
-    if (age < 15 || age >= 40) {
-      return {
-        sucess: false,
-        message: "Somente maiores de 15 e menores de 40 anos podem participar",
-      };
-    }
-
-    if (city !== "Pallet" && city !== "Vermelion") {
-      return {
-        sucess: false,
-        message: "Somente moradores de Pallet e Vermelion podem participar",
-      };
-    }
-
-    trainers[updateTrainerIndex] = {
-      id,
-      name,
-      age,
-      city,
-    };
-
-    return {
-      sucess: true,
-      message: trainers[updateTrainerIndex],
-    };
   }
 }
