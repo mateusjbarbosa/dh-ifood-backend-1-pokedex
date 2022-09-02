@@ -24,7 +24,7 @@ export default class CreateTrainerService {
         id: v4(),
         name,
         email,
-        password,
+        passwordHash: password,
         age,
         city,
       });

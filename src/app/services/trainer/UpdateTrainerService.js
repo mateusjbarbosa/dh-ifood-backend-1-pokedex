@@ -1,4 +1,4 @@
-import { TrainerModel } from "../../models/trainer/TrainerModel";
+import TrainerModel from "../../models/trainer/TrainerModel";
 import ListTrainerService from "./ListTrainerService";
 
 export default class UpdateTrainerService {
