@@ -7,6 +7,7 @@ import legendaryValidator from "./middlewares/LegendaryValidator";
 
 import CreateLegendaryController from "./app/controllers/legendary/CreateLegendaryController";
 import DeleteLegendaryController from "./app/controllers/legendary/DeleteLegendaryController";
+import ListAllLegendariesController from "./app/controllers/legendary/ListAllLegendariesController";
 import ListLegendaryByNameController from "./app/controllers/legendary/ListLegendaryByNameController";
 import UpdateLegendaryController from "./app/controllers/legendary/UpdateLegendaryController";
 
@@ -23,16 +24,17 @@ const uploadFile = multer({ storage: multerConfig });
 const routes = new Router();
 
 const createLegendaryController = new CreateLegendaryController();
+const listAllLegendariesController = new ListAllLegendariesController();
 const listLegendaryByNameController = new ListLegendaryByNameController();
 const updateLegendaryController = new UpdateLegendaryController();
 const deleteLegendaryController = new DeleteLegendaryController();
 
 routes.get("/legendaries", (req, res) =>
-  listLegendaryByNameController.index(req, res)
+  listAllLegendariesController.index(req, res)
 );
-// routes.get("/legendary-by-name", (req, res) =>
-//   listLegendaryByNameController.show(req, res)
-// );
+routes.get("/legendary-by-name", (req, res) =>
+  listLegendaryByNameController.show(req, res)
+);
 routes.post("/legendaries", legendaryValidator, (req, res) =>
   createLegendaryController.create(req, res)
 );
