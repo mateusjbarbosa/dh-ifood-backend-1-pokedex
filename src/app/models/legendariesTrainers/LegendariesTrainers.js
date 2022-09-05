@@ -43,7 +43,7 @@ LegendariesTrainers.belongsTo(LegendaryModel, {
   foreignKey: "legendaryId",
 });
 
-TrainerModel.belongsTo(LegendaryModel, {
+LegendariesTrainers.belongsTo(TrainerModel, {
   as: "Trainer",
   foreignKey: "trainerId",
 });
