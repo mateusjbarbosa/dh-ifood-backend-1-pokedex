@@ -35,4 +35,17 @@ LegendariesTrainers.init(
   }
 );
 
+LegendaryModel.belongsToMany(TrainerModel, { through: LegendariesTrainers });
+TrainerModel.belongsToMany(LegendaryModel, { through: LegendariesTrainers });
+
+LegendariesTrainers.belongsTo(LegendaryModel, {
+  as: "Legendary",
+  foreignKey: "legendaryId",
+});
+
+TrainerModel.belongsTo(LegendaryModel, {
+  as: "Trainer",
+  foreignKey: "trainerId",
+});
+
 export default LegendariesTrainers;
