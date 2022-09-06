@@ -1,6 +1,6 @@
-import crypto from "node:crypto";
 import { v4 } from "uuid";
 import TrainerModel from "../../models/trainer/TrainerModel";
+import HashPassword from "../../utils/HashPassword";
 
 export default class CreateTrainerService {
   constructor() {}
@@ -20,9 +20,7 @@ export default class CreateTrainerService {
       };
     }
 
-    const hashedPassword = crypto
-      .pbkdf2Sync(password, process.env.PASSWORD_SALT, 10000, 64, "sha512")
-      .toString("hex");
+    const hashedPassword = HashPassword.hash(password);
 
     try {
       const newTrainer = await TrainerModel.create({

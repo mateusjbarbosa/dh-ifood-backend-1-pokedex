@@ -18,13 +18,8 @@ export default class ListTrainerService {
       const trainer = await TrainerModel.findOne({
         where: {
           email,
-          password,
         },
       });
-
-      if (!trainer) {
-        return { mensagem: "Treinador não encontrado" };
-      }
 
       return trainer;
     } catch (error) {
