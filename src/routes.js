@@ -17,6 +17,7 @@ import UpdateTrainerController from "./app/controllers/trainer/UpdateTrainerCont
 import UpdateFileController from "./app/controllers/upload/UploadFileController";
 
 import SessionController from "./app/controllers/auth/SessionController";
+import validateSessionToken from "./middlewares/ValidateSessionToken";
 
 const uploadFile = multer({ storage: multerConfig });
 
@@ -26,6 +27,14 @@ const createLegendaryController = new CreateLegendaryController();
 const listLegendariesController = new ListLegendariesController();
 const updateLegendaryController = new UpdateLegendaryController();
 const deleteLegendaryController = new DeleteLegendaryController();
+
+routes.post("/session", (req, res) => SessionController.create(req, res));
+
+routes.get("/trainers", (req, res) =>
+  listAllTrainersController.listAll(req, res)
+);
+
+routes.use(validateSessionToken);
 
 routes.get("/legendaries", (req, res) =>
   listLegendariesController.index(req, res)
@@ -44,9 +53,6 @@ const listAllTrainersController = new ListAllTrainersController();
 const createTrainerController = new CreateTrainerController();
 const updateTrainerController = new UpdateTrainerController();
 
-routes.get("/trainers", (req, res) =>
-  listAllTrainersController.listAll(req, res)
-);
 routes.post("/trainers", (req, res) =>
   createTrainerController.create(req, res)
 );
@@ -57,7 +63,5 @@ routes.put("/trainers/:id", (req, res) =>
 routes.post("/uploads", uploadFile.single("file"), (req, res) =>
   UpdateFileController.storeFile(req, res)
 );
-
-routes.post("/session", (req, res) => SessionController.create(req, res));
 
 export default routes;
