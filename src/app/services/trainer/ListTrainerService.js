@@ -13,11 +13,26 @@ export default class ListTrainerService {
     }
   }
 
-  async listOne(email, password) {
+  async listOne(email) {
     try {
       const trainer = await TrainerModel.findOne({
         where: {
           email,
+        },
+      });
+
+      return trainer;
+    } catch (error) {
+      console.log(error);
+      return { erro: error.message };
+    }
+  }
+
+  async listOneById(id) {
+    try {
+      const trainer = await TrainerModel.findOne({
+        where: {
+          id,
         },
       });
 

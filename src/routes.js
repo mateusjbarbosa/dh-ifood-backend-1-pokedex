@@ -17,6 +17,7 @@ import UpdateTrainerController from "./app/controllers/trainer/UpdateTrainerCont
 import UpdateFileController from "./app/controllers/upload/UploadFileController";
 
 import SessionController from "./app/controllers/auth/SessionController";
+
 import validateSessionToken from "./middlewares/ValidateSessionToken";
 
 const uploadFile = multer({ storage: multerConfig });
