@@ -5,7 +5,7 @@ export default class UpdateLegendaryController {
     this.service = new UpdateLegendaryService();
   }
 
-  update(request, response) {
+  async update(request, response) {
     const { id } = request.params;
     const {
       name,
@@ -19,7 +19,7 @@ export default class UpdateLegendaryController {
       specialDefense,
     } = request.body;
 
-    const updatedLegendary = this.service.update(
+    const updatedLegendary = await this.service.update(
       id,
       name,
       description,

@@ -5,7 +5,7 @@ export default class CreateTrainerController {
     this.service = new CreateTrainerService();
   }
 
-  create(request, response) {
+  async create(request, response) {
     const { name, email, password, age, city } = request.body;
 
     if (!name) {
@@ -20,7 +20,7 @@ export default class CreateTrainerController {
       });
     }
 
-    const createdTrainer = this.service.create(
+    const createdTrainer = await this.service.create(
       name,
       email,
       password,

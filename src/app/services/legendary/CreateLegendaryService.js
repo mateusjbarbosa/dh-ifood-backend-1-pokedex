@@ -4,7 +4,7 @@ import LegendaryModel from "../../models/legendary/LegendaryModel";
 export default class CreateLegendaryService {
   constructor() {}
 
-  create(
+  async create(
     name,
     description,
     type,
@@ -15,19 +15,24 @@ export default class CreateLegendaryService {
     experience,
     specialDefense
   ) {
-    const newLegendary = new LegendaryModel(
-      v4(),
-      name,
-      description,
-      type,
-      healthPoints,
-      specialAttack,
-      defense,
-      attack,
-      experience,
-      specialDefense
-    );
+    try {
+      const newLegendary = await LegendaryModel.create({
+        id: v4(),
+        name,
+        description,
+        type,
+        healthPoints,
+        specialAttack,
+        defense,
+        attack,
+        experience,
+        specialDefense,
+      });
 
-    return newLegendary;
+      return newLegendary;
+    } catch (error) {
+      console.log(error);
+      return { erro: error.message };
+    }
   }
 }

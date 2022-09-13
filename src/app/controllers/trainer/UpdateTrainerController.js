@@ -5,7 +5,7 @@ export default class UpdateTrainerController {
     this.service = new UpdateTrainerService();
   }
 
-  update(request, response) {
+  async update(request, response) {
     const { id } = request.params;
     const { name, age, city } = request.body;
 
@@ -21,7 +21,7 @@ export default class UpdateTrainerController {
       });
     }
 
-    const updatedTrainer = this.service.update(id, name, age, city);
+    const updatedTrainer = await this.service.update(id, name, age, city);
 
     if (!updatedTrainer.sucess) {
       return response.status(400).json(updatedTrainer.message);

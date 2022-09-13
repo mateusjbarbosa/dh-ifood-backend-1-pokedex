@@ -3,26 +3,43 @@ import TrainerModel from "../../models/trainer/TrainerModel";
 export default class ListTrainerService {
   constructor() {}
 
-  listAll() {
-    const trainers = [
-      new TrainerModel(
-        "5ed061a8-dacb-4b14-af79-7e7abea09b45",
-        "Bruno",
-        "boliveira@digitalhouse.com",
-        "123456",
-        25,
-        "Cariacica"
-      ),
-    ];
-
-    return trainers;
+  async listAll() {
+    try {
+      const trainers = await TrainerModel.findAll();
+      return trainers;
+    } catch (error) {
+      console.log(error);
+      return { erro: error.message };
+    }
   }
 
-  listOne(email, password) {
-    const trainer = this.listAll().find(
-      (trainer) => trainer.email === email && trainer.password === password
-    );
+  async listOne(email) {
+    try {
+      const trainer = await TrainerModel.findOne({
+        where: {
+          email,
+        },
+      });
 
-    return trainer;
+      return trainer;
+    } catch (error) {
+      console.log(error);
+      return { erro: error.message };
+    }
+  }
+
+  async listOneById(id) {
+    try {
+      const trainer = await TrainerModel.findOne({
+        where: {
+          id,
+        },
+      });
+
+      return trainer;
+    } catch (error) {
+      console.log(error);
+      return { erro: error.message };
+    }
   }
 }

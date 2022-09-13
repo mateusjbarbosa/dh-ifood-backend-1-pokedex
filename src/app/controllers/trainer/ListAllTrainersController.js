@@ -5,8 +5,8 @@ export default class ListAllTrainersController {
     this.service = new ListTrainerService();
   }
 
-  listAll(request, response) {
-    const trainers = this.service.listAll();
+  async listAll(request, response) {
+    const trainers = await this.service.listAll();
 
     return response.send(trainers);
   }
