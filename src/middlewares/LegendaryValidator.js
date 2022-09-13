@@ -25,5 +25,6 @@ export default async function legendaryValidator(request, response, next) {
       error: err.errors,
     });
   });
+
   next();
 }

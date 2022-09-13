@@ -13,18 +13,28 @@ export default class ListTrainerService {
     }
   }
 
-  async listOne(email, password) {
+  async listOne(email) {
     try {
       const trainer = await TrainerModel.findOne({
         where: {
           email,
-          password,
         },
       });
 
-      if (!trainer) {
-        return { mensagem: "Treinador não encontrado" };
-      }
+      return trainer;
+    } catch (error) {
+      console.log(error);
+      return { erro: error.message };
+    }
+  }
+
+  async listOneById(id) {
+    try {
+      const trainer = await TrainerModel.findOne({
+        where: {
+          id,
+        },
+      });
 
       return trainer;
     } catch (error) {

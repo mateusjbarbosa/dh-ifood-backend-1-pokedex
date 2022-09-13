@@ -1,5 +1,6 @@
 import { v4 } from "uuid";
 import TrainerModel from "../../models/trainer/TrainerModel";
+import HashPassword from "../../utils/HashPassword";
 
 export default class CreateTrainerService {
   constructor() {}
@@ -19,12 +20,14 @@ export default class CreateTrainerService {
       };
     }
 
+    const hashedPassword = HashPassword.hash(password);
+
     try {
       const newTrainer = await TrainerModel.create({
         id: v4(),
         name,
         email,
-        passwordHash: password,
+        passwordHash: hashedPassword,
         age,
         city,
       });
