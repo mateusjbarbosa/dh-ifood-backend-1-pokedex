@@ -20,6 +20,8 @@ import SessionController from "./app/controllers/auth/SessionController";
 
 import validateSessionToken from "./middlewares/ValidateSessionToken";
 
+import ListRemotePokemonsController from "./app/controllers/remote-pokemon/ListRemotePokemons";
+
 const uploadFile = multer({ storage: multerConfig });
 
 const routes = new Router();
@@ -65,4 +67,13 @@ routes.post("/uploads", uploadFile.single("file"), (req, res) =>
   UpdateFileController.storeFile(req, res)
 );
 
+const listRemotePokemonsController = new ListRemotePokemonsController();
+
+routes.get("/remote-pokemons", (req, res) => {
+  listRemotePokemonsController.index(req, res);
+});
+
+routes.get("/remote-pokemons/:name", (req, res) => {
+  listRemotePokemonsController.show(req, res);
+});
 export default routes;
