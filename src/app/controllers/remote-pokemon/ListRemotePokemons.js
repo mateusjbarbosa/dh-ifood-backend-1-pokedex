@@ -1,4 +1,4 @@
-import axios from "axios";
+import { pokeApi } from "../../../config/axios";
 
 export default class ListRemotePokemonsController {
   constructor() {}
@@ -7,8 +7,8 @@ export default class ListRemotePokemonsController {
     const { offset, limit } = request.query;
 
     try {
-      const result = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
+      const result = await pokeApi.get(
+        `/pokemon?offset=${offset}&limit=${limit}`
       );
 
       return response.status(result.status).json(result.data);
@@ -21,9 +21,7 @@ export default class ListRemotePokemonsController {
     const { name } = request.params;
 
     try {
-      const result = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/${name}`
-      );
+      const result = await pokeApi.get(`/pokemon/${name}`);
 
       return response.status(result.status).json(result.data);
     } catch (error) {
@@ -35,7 +33,7 @@ export default class ListRemotePokemonsController {
     try {
       // é a mesma estrutura para put ou patch
       // ATENÇÃO: ESSA ROTA NÃO EXISTE, É SOMENTE DIDÁTICA
-      const result = await axios.post("https://pokeapi.co/api/v2/pokemon", {
+      const result = await pokeApi.post("/pokemon", {
         name: "Bubassauro",
         description: "Um pokémon bem bacana",
         type: "legendary",
