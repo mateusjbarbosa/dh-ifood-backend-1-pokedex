@@ -22,6 +22,9 @@ import validateSessionToken from "./middlewares/ValidateSessionToken";
 
 import ListRemotePokemonsController from "./app/controllers/remote-pokemon/ListRemotePokemons";
 
+import swagger from "swagger-ui-express";
+import swaggerJson from "./docs/swagger.json";
+
 const uploadFile = multer({ storage: multerConfig });
 
 const routes = new Router();
@@ -30,6 +33,8 @@ const createLegendaryController = new CreateLegendaryController();
 const listLegendariesController = new ListLegendariesController();
 const updateLegendaryController = new UpdateLegendaryController();
 const deleteLegendaryController = new DeleteLegendaryController();
+
+routes.use("/docs", swagger.serve, swagger.setup(swaggerJson));
 
 routes.post("/session", (req, res) => SessionController.create(req, res));
 
