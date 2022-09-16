@@ -10,5 +10,214 @@
       "description": "Localhost",
       "url": "http://localhost:3030"
     }
-  ]
+  ],
+  "paths": {
+    "/session": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Realizar login na API",
+        "description": "Esta rota é responsável por gerar um token JWT para visualização de rotas protegidas",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/session-request" },
+              "examples": {
+                "session-sucess": {
+                  "value": {
+                    "email": "email@example.com",
+                    "password": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login realizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/session-response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos / Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "value": {
+                  "error": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trainers": {
+      "get": {
+        "tags": ["Trainer"],
+        "summary": "Lista todos os treinadores",
+        "description": "Esta rota é responsável por listar todos os treinadores cadastrados",
+        "responses": {
+          "200": {
+            "description": "Lista os treinadores cadastrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/trainer-response" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Trainer"],
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Cadastra um novo treinador",
+        "description": "Esta rota é responsável por cadastrar um novo treinador",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/trainer-request" },
+              "examples": {
+                "trainer-sucess": {
+                  "value": {
+                    "name": "Treinador 01",
+                    "age": 20,
+                    "city": "Pallet",
+                    "email": "treinador01@email.com",
+                    "password": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cria um treinador com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/trainer-response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Token inválido ou não informado"
+          }
+        }
+      }
+    },
+    "/trainers/{id}": {
+      "put": {
+        "tags": ["Trainer"],
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Atualiza um treinador existente",
+        "description": "Esta rota é responsável por atualizar um treinador cadastrado",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID do treinador que será atualizado",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/trainer-request" },
+              "examples": {
+                "trainer-sucess": {
+                  "value": {
+                    "name": "Treinador atualizado",
+                    "age": 22,
+                    "city": "Pallet",
+                    "email": "treinador01@email.com",
+                    "password": "12345678"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Treinador atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/trainer-response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Token inválido ou não informado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "session-request": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      },
+      "session-response": {
+        "type": "object",
+        "properties": {
+          "trainer": { "type": "object" },
+          "token": { "type": "string" }
+        }
+      },
+      "trainer-response": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "passwordHash": { "type": "string" },
+          "age": { "type": "string" },
+          "city": { "type": "string" }
+        }
+      },
+      "trainer-request": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "age": { "type": "number" },
+          "city": { "type": "string" },
+          "email": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
 }
