@@ -1,0 +1,14 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Pokédex Ifood",
+    "description": "API Pokédex Ifood",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "description": "Localhost",
+      "url": "http://localhost:3030"
+    }
+  ]
+}
