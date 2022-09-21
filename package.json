@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon",
-    "poststart": "npx sequelize-cli db:migrate"
+    "prestart": "npx sequelize-cli db:migrate"
   },
   "keywords": [],
   "author": "",
