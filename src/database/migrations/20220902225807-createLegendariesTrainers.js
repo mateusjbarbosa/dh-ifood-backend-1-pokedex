@@ -13,7 +13,6 @@ module.exports = {
         type: Sequelize.UUID,
         references: {
           model: {
-            schema: "schema",
             tableName: "legendaries",
           },
           key: "id",
@@ -24,7 +23,6 @@ module.exports = {
         type: Sequelize.UUID,
         references: {
           model: {
-            schema: "schema",
             tableName: "trainers",
           },
           key: "id",
