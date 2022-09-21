@@ -9,6 +9,10 @@
     {
       "description": "Localhost",
       "url": "http://localhost:3030"
+    },
+    {
+      "description": "Production",
+      "url": "https://dh-ifood-backend-1-pokedex-production.up.railway.app"
     }
   ],
   "paths": {
